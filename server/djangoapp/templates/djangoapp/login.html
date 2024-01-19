@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+<head>
+  <style>
+      /* Add glassmorphism styles */
+      .glassmorphism-form {
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.125);
+          padding: 20px;
+          margin: auto;
+          margin-top: 5%;
+          max-width: 400px;
+      }
+
+      .glassmorphism-form h1 {
+          color: #fff;
+      }
+
+      .glassmorphism-form label,
+      .glassmorphism-form input,
+      .glassmorphism-form button,
+      .glassmorphism-form .alert {
+          background: rgba(255, 255, 255, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.125);
+          border-radius: 5px;
+          margin-bottom: 10px;
+          color: #fff;
+      }
+
+      .glassmorphism-form input,
+      .glassmorphism-form button {
+          width: 100%;
+          padding: 10px;
+      }
+
+      .glassmorphism-form button {
+          cursor: pointer;
+          transition: background 0.3s ease-in-out;
+      }
+
+      .glassmorphism-form button:hover {
+          background: rgba(255, 255, 255, 0.3);
+      }
+  </style>
+</head>
+
+
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="glassmorphism-form p-4">
+            <h1 class="text-center">Login</h1>
+            <form action="{% url 'djangoapp:login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username"><b>User Name</b></label>
+                    <input id="username" class="form-control" type="text" placeholder="Enter User Name" name="username" required>
+                    <label for="psw"><b>Password</b></label>
+                    <input id="psw" class="form-control" type="password" placeholder="Enter Password" name="psw" required>
+                </div>
+                {% if message %}
+                    <div class="alert alert-warning">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                <button class="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

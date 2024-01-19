@@ -3,58 +3,112 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BestCar Dealership Branch Reviews</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css">
+    <!-- Add your custom CSS if needed -->
+
+    <!-- Bootstrap JS dependencies -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Table and Filter Control JS -->
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* Add glassmorphism styles */
+        .glassmorphism-form {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 20px;
+            margin: auto;
+            margin-top: 5%;
+            max-width: 400px;
+        }
+  
+        .glassmorphism-form h1 {
+            color: #fff;
+        }
+  
+        .glassmorphism-form label,
+        .glassmorphism-form input,
+        .glassmorphism-form button,
+        .glassmorphism-form .alert {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+  
+        .glassmorphism-form input,
+        .glassmorphism-form button {
+            width: 100%;
+            padding: 10px;
+        }
+  
+        .glassmorphism-form button {
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+  
+        .glassmorphism-form button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+  </head>
+  
 </head>
-<body class="text-center">
-    <!-- navbar -->
+<body>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" href="{% url 'djangoapp:index' %}">BestCar Dealership Branch Reviews</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarText">
-                <ul style="justify-content:left;" class="navbar-nav">
-                    <li class="navbar-brand">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'djangoapp:about' %}">About Us</a>
                     </li>
-                    <li class="navbar-brand">
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'djangoapp:contact' %}">Contact Us</a>
                     </li>
                 </ul>
             </div>
-            <div class="nav navbar-nav navbar-right">
+            <div class="navbar-text">
                 {% if user.is_authenticated %}
-                <li>
-                    <a class="btn btn-link" href="#">{{ user.first_name }} ({{ user.username }})</a>
+                    <span class="mr-3">{{ user.first_name }} ({{ user.username }})</span>
                     <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
-                </li>
                 {% else %}
-                <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Username" name="username" >
-                        <input type="password" class="form-control" placeholder="Password" name="psw" >
+                    <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                        {% csrf_token %}
+                        <input type="text" class="form-control mr-2" placeholder="Username" name="username" >
+                        <input type="password" class="form-control mr-2" placeholder="Password" name="psw" >
                         <button class="btn btn-primary" type="submit">Login</button>
-                        <a class="nav-link" style="font-size:15px" href="{% url 'djangoapp:registration' %}">Sign Up</a>
-                    </div>
-                </form>
+                    </form>
+                    <a class="btn btn-link ml-2" href="{% url 'djangoapp:registration' %}">Sign Up</a>
                 {% endif %}
             </div>
         </div>
     </nav>
-    <!-- Main content. HTML inserted from extensions of base.html -->
-    <main role="main" class="row justify-content-center">
-        <div class="main col-lg-9 col-md-12">
-            {% block content %} 
-            {% endblock %}
+
+    <!-- Main content -->
+    <main class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-md-12">
+                {% block content %} 
+                {% endblock %}
+            </div>
         </div>
     </main>
-    <!-- footer -->
+
+
 </body>
 </html>

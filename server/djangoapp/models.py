@@ -13,6 +13,7 @@ class CarMake(models.Model):
 
 # Car Model model
 
+
 class CarModel(models.Model):
     car_make = models.ForeignKey(CarMake, null=True, on_delete=models.CASCADE)
     name = models.CharField(null=False, max_length=50)

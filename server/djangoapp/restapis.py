@@ -168,18 +168,14 @@ def analyze_review_sentiments(review_text):
         version=version, authenticator=authenticator)
     nlu.set_service_url(url)
 
-    # get sentiment of the review
     try:
         response = nlu.analyze(text=review_text, features=Features(
             sentiment=SentimentOptions())).get_result()
         print(json.dumps(response))
-        # sentiment_score = str(response["sentiment"]["document"]["score"])
         sentiment_label = response["sentiment"]["document"]["label"]
     except:
         print("Review is too short for sentiment analysis. Assigning default sentiment value 'neutral' instead")
         sentiment_label = "neutral"
-
-    # print(sentiment_score)
     print(sentiment_label)
 
     return sentiment_label

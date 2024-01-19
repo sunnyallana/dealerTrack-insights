@@ -27,13 +27,11 @@ DEBUG = True
 
 APPEND_SLASH = True
 
-ALLOWED_HOSTS = ['localhost','<Your app URL>']
+ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['<Your app URL>']
-
+CSRF_TRUSTED_ORIGINS = ['https://*.cognitiveclass.ai']
 
 # Application definition
-
 INSTALLED_APPS = [
     'djangoapp.apps.DjangoappConfig',
     'django.contrib.admin',

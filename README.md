@@ -1,36 +1,59 @@
-# Final Project Template
+# Full Stack Django Cloud Application Development Project
 
-The final project for this course has several steps that you must complete. 
-To give you an overview of the whole project, all the high-level steps are listed below. 
-The project is then divided into several smaller labs that give the detailed instructions for each step. 
-You must complete all the labs to successfully complete the project.
+This codebase encompasses the development of a Django web application hosted on the IBM Cloud, titled "dealerTrack-insights."
 
-## Project Breakdown
+#### Background
+The application, named "dealerTrack-insights," was developed as the final [Capstone Project](https://www.coursera.org/learn/ibm-cloud-native-full-stack-development-capstone?specialization=ibm-full-stack-cloud-developer) in the 11th course of [IBM Full Stack Cloud Developer Professional Certificate](https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer) on Coursera. The initial version of the Django application lacked central functionality and templates. Coursera provided the general architecture, idea, and most of the design and layout. Due to strict peer-review requirements, the focus was on implementing functionality and back-end services specified by the course instructors, rather than enhancing front-end design.
 
-**Prework: Sign up for IBM Cloud account and create a Watson Natural language Understanding service**
-1. Create an IBM cloud account if you don't have one already.
-2. Create an instance of the Natural Language Understanding (NLU) service.
+#### Project Requirements
+The objective is to construct a web application enabling users to choose one of *Best Car*'s dealerships (a fictional company) in the US to view reviews of the dealership's cars submitted by other users and submit their own reviews. The website also includes basic features like a navigation bar, "about," and "contact" pages. The project mandates the use of the Python-Django full stack web development framework and deployment with Red Hat Openshift/Kubernetes on the IBM Cloud.
 
-**Fork the project Github repository with a project then build and deploy the template project**
-1. Fork the repository in your account
-2. Clone the repository in the theia lab environment
-3. Create static pages to finish the user stories
-4. Deploy the application on IBM Cloud
+#### Architecture
+![Application architecture model](softwareArchitecture.jpg)
+_Application architecture_
 
-**Add user management to the application**
-1. Implement user management using the Django user authentication system.
-2. Set up continuous integration and delivery
+Dealer and review data reside in an IBM Cloudant database, while user and car data are stored in a simple SQLite database. To access Cloudant data, three IBM Cloud Functions were created, accessible through an API. IBM Watson analyzes each review to determine its general sentiment (negative, neutral, positive).
 
-**Implement backend services**
-1. Create cloud functions to manage dealers and reviews
-2. Create Django models and views to manage car model and car make
-3. Create Django proxy services and views to integrate dealers, reviews, and cars together
- 
-**Add dynamic pages with Django templates**
-1. Create a page that shows all the dealers
-2. Create a page that show reviews for a selected dealer
-3. Create a page that let's the end user add a review for a selected dealer
+#### Setup
+1. Clone the project:
 
-**Containerize your application**
-1. Add deployment artifacts to your application
-2. Deploy your application
+    ```bash
+    cd dealerTrack-insights/server
+    ```
+
+2. Install required Python packages:
+
+    ```bash
+    python -m pip install -r requirements.txt
+    ```
+
+3. Run the development server:
+
+    ```bash
+    python manage.py createmigrations
+    python manage.py migrate
+    python manage.py runserver
+    ```
+
+### Usage
+
+1. Create a superuser to manage the Django admin interface:
+
+  ```bash
+  python manage.py createsuperuser
+  ```
+
+#### Access the admin interface at http://127.0.0.1:8000/admin/ and log in with the superuser credentials.
+
+## Contributing
+
+#### If you'd like to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch for your feature: git checkout -b feature-name.
+3. Commit your changes: git commit -m 'Add new feature'.
+4. Push the branch to your fork: git push origin feature-name.
+5. Create a pull request.
+
+## License
+This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
